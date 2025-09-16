@@ -7,9 +7,16 @@ def index(request):
         movies = Movie.objects.filter(name__icontains=search_term)
     else:
         movies = Movie.objects.all()
+    
+    # Filter out movies with amount_left = 0 (only if amount_left is not None)
+    available_movies = []
+    for movie in movies:
+        if movie.amount_left is None or movie.amount_left > 0:
+            available_movies.append(movie)
+    
     template_data = {}
     template_data['title'] = 'Movies'
-    template_data['movies'] = Movie.objects.all()
+    template_data['movies'] = available_movies
     return render(request, 'movies/index.html',
                   {'template_data': template_data})
 
