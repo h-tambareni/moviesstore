@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="p-3">
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-md-8 mx-auto mb-3">
+        <h2>Create New Movie Petition</h2>
+        <hr />
+        <p>Request a movie to be added to our catalog. Other users will be able to vote on your petition!</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-8 mx-auto">
+        <div class="card">
+          <div class="card-body">
+            <form method="POST">
+              {% csrf_token %}
+              <div class="mb-3">
+                <label for="movie_title" class="form-label">
+                  <strong>Movie Title *</strong>
+                </label>
+                <input type="text" class="form-control" id="movie_title" name="movie_title" 
+                       placeholder="Enter the title of the movie you want to request" required>
+                <div class="form-text">The exact title of the movie you'd like to see added.</div>
+              </div>
+              
+              <div class="mb-3">
+                <label for="movie_description" class="form-label">
+                  <strong>Description & Reason *</strong>
+                </label>
+                <textarea class="form-control" id="movie_description" name="movie_description" 
+                          rows="5" placeholder="Describe the movie and explain why it should be added to our catalog..." required></textarea>
+                <div class="form-text">
+                  Tell us about the movie (genre, year, director, etc.) and why you think it would be a good addition to our store.
+                </div>
+              </div>
+              
+              <div class="d-flex justify-content-between">
+                <a href="{% url 'movies.petition_list' %}" class="btn btn-secondary">
+                  <i class="fas fa-arrow-left"></i> Back to Petitions
+                </a>
+                <button type="submit" class="btn bg-dark text-white">
+                  <i class="fas fa-paper-plane"></i> Submit Petition
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row mt-4">
+      <div class="col-md-8 mx-auto">
+        <div class="alert alert-info">
+          <h6><i class="fas fa-info-circle"></i> How it works:</h6>
+          <ul class="mb-0">
+            <li>Once you submit your petition, other users can vote "Yes" or "No"</li>
+            <li>Petitions with high "Yes" votes are more likely to be considered by our admin</li>
+            <li>You can only create one petition at a time</li>
+            <li>Be descriptive and convincing to get more votes!</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
